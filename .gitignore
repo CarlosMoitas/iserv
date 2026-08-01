@@ -42,3 +42,8 @@ Thumbs.db
 setup-db.sql
 *.tmp
 *.temp
+
+# Arquivos grandes
+*.zip
+*.tar.gz
+*.rar
