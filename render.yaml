@@ -32,6 +32,7 @@ services:
     envVars:
       - key: VITE_API_URL
         value: https://iserv-api.onrender.com
+        sync: false
 
 databases:
   - name: iserv-db
