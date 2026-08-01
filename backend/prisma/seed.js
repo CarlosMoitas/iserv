@@ -39,36 +39,106 @@ async function main() {
     },
   });
 
-  const clientes = await Promise.all([
-    prisma.cliente.create({ data: { empresaId: empresa.id, nome: "João Silva", email: "joao@email.com", telefone: "(11) 98888-0001" } }),
-    prisma.cliente.create({ data: { empresaId: empresa.id, nome: "Maria Souza", email: "maria@email.com", telefone: "(11) 98888-0002" } }),
-    prisma.cliente.create({ data: { empresaId: empresa.id, nome: "Carlos Oliveira", email: "carlos@email.com", telefone: "(11) 98888-0003" } }),
-  ]);
+  const joao = await prisma.cliente.upsert({
+    where: { id: `seed-cliente-1-${empresa.id}` },
+    update: {},
+    create: {
+      id: `seed-cliente-1-${empresa.id}`,
+      empresaId: empresa.id,
+      nome: "João Silva",
+      email: "joao@email.com",
+      telefone: "(11) 98888-0001",
+    },
+  });
 
-  const servico = await prisma.servico.create({
-    data: { empresaId: empresa.id, nome: "Serviço Padrão", descricao: "Serviço demonstração", preco: 150.0, duracaoMinutos: 60 },
+  const maria = await prisma.cliente.upsert({
+    where: { id: `seed-cliente-2-${empresa.id}` },
+    update: {},
+    create: {
+      id: `seed-cliente-2-${empresa.id}`,
+      empresaId: empresa.id,
+      nome: "Maria Souza",
+      email: "maria@email.com",
+      telefone: "(11) 98888-0002",
+    },
+  });
+
+  await prisma.cliente.upsert({
+    where: { id: `seed-cliente-3-${empresa.id}` },
+    update: {},
+    create: {
+      id: `seed-cliente-3-${empresa.id}`,
+      empresaId: empresa.id,
+      nome: "Carlos Oliveira",
+      email: "carlos@email.com",
+      telefone: "(11) 98888-0003",
+    },
+  });
+
+  const servico = await prisma.servico.upsert({
+    where: { id: `seed-servico-1-${empresa.id}` },
+    update: {},
+    create: {
+      id: `seed-servico-1-${empresa.id}`,
+      empresaId: empresa.id,
+      nome: "Serviço Padrão",
+      descricao: "Serviço demonstração",
+      preco: 150.0,
+      duracaoMinutos: 60,
+    },
   });
 
   const hoje = new Date();
   const inicio = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate(), 10, 0);
   const fim = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate(), 11, 0);
 
-  await prisma.agendamento.create({
-    data: { empresaId: empresa.id, clienteId: clientes[0].id, servicoId: servico.id, titulo: "Atendimento João", inicio, fim },
+  await prisma.agendamento.upsert({
+    where: { id: `seed-agend-1-${empresa.id}` },
+    update: {},
+    create: {
+      id: `seed-agend-1-${empresa.id}`,
+      empresaId: empresa.id,
+      clienteId: joao.id,
+      servicoId: servico.id,
+      titulo: "Atendimento João",
+      inicio,
+      fim,
+    },
   });
 
-  await prisma.ordemServico.create({
-    data: { empresaId: empresa.id, clienteId: clientes[1].id, responsavelId: usuario.id, numero: 1, titulo: "OS de demonstração", status: "ABERTA", valorTotal: 350.0 },
+  await prisma.ordemServico.upsert({
+    where: { empresaId_numero: { empresaId: empresa.id, numero: 1 } },
+    update: {},
+    create: {
+      empresaId: empresa.id,
+      clienteId: maria.id,
+      responsavelId: usuario.id,
+      numero: 1,
+      titulo: "OS de demonstração",
+      status: "ABERTA",
+      valorTotal: 350.0,
+    },
   });
 
-  await prisma.pagamento.create({
-    data: { empresaId: empresa.id, clienteId: clientes[0].id, descricao: "Serviço realizado", tipo: "ENTRADA", status: "PAGO", valor: 150.0, dataPagamento: new Date() },
+  await prisma.pagamento.upsert({
+    where: { id: `seed-pag-1-${empresa.id}` },
+    update: {},
+    create: {
+      id: `seed-pag-1-${empresa.id}`,
+      empresaId: empresa.id,
+      clienteId: joao.id,
+      descricao: "Serviço realizado",
+      tipo: "ENTRADA",
+      status: "PAGO",
+      valor: 150.0,
+      dataPagamento: new Date(),
+    },
   });
 
   console.log("✅ Seed concluído!");
-  console.log(`   Empresa: demo`);
-  console.log(`   E-mail:  admin@demo.com`);
-  console.log(`   Senha:   senha123456`);
+  console.log("   Empresa: demo");
+  console.log("   E-mail:  admin@demo.com");
+  console.log("   Senha:   senha123456");
 }
 
 main()
