@@ -20,7 +20,7 @@ services:
       - key: JWT_EXPIRES_IN
         value: 7d
       - key: CORS_ORIGIN
-        value: https://iserv-frontend.onrender.com
+        value: https://iserv-l1ji.onrender.com
 
   - type: web
     name: iserv-frontend

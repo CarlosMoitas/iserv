@@ -10,7 +10,23 @@ const port = Number(process.env.PORT || 3333);
 
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN?.split(",").map((origin) => origin.trim()) || true,
+    origin: (origin, callback) => {
+      const allowed = (process.env.CORS_ORIGIN || "")
+        .split(",")
+        .map((o) => o.trim())
+        .filter(Boolean);
+
+      if (!origin || allowed.length === 0 || allowed.includes(origin)) {
+        return callback(null, true);
+      }
+
+      if (origin.endsWith(".onrender.com") || origin.startsWith("http://localhost")) {
+        return callback(null, true);
+      }
+
+      return callback(new Error(`CORS bloqueado: ${origin}`));
+    },
+    credentials: true,
   }),
 );
 app.use(express.json({ limit: "2mb" }));
