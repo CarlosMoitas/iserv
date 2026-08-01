@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "node --watch src/server.js",
-    "start": "prisma migrate deploy && node prisma/seed.js && node src/server.js",
+    "postinstall": "prisma generate",
+    "start": "prisma generate && prisma migrate deploy && node prisma/seed.js && node src/server.js",
     "build": "prisma generate",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
