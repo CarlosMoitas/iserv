@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soma Contabilidade | Gestão e Compliance</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #b91c2c 0%, #2a1e28 100%);
+      overflow-x: hidden;
+    }
+    .geometric-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: hidden; }
+    .geo-shape { position: absolute; background: rgba(255, 245, 235, 0.06); backdrop-filter: blur(2px); border-radius: 50%; animation: floatShape 22s infinite alternate ease-in-out; }
+    .geo-circle-1 { width: 420px; height: 420px; top: -150px; left: -100px; background: rgba(255,210,190,0.08); border: 2px solid rgba(255,220,190,0.2); }
+    .geo-circle-2 { width: 600px; height: 600px; bottom: -220px; right: -180px; background: radial-gradient(circle, rgba(255,210,170,0.08), transparent); border-radius: 50%; border: 1px solid rgba(255,200,160,0.2); }
+    .geo-triangle { position: absolute; width: 0; height: 0; border-left: 200px solid transparent; border-right: 200px solid transparent; border-bottom: 340px solid rgba(255,210,180,0.07); top: 15%; right: 3%; transform: rotate(20deg); filter: blur(1px); }
+    .geo-triangle2 { position: absolute; width: 0; height: 0; border-left: 140px solid transparent; border-right: 140px solid transparent; border-top: 240px solid rgba(255,225,190,0.07); bottom: 12%; left: -50px; transform: rotate(50deg); }
+    .geo-polygon { position: absolute; width: 300px; height: 300px; background: rgba(255,235,200,0.05); clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); top: 60%; left: 70%; transform: rotate(12deg); }
+    .geo-rect { position: absolute; width: 450px; height: 240px; background: rgba(230,195,160,0.05); transform: rotate(35deg); top: 30%; left: -120px; border-radius: 70px; }
+    .geo-dots { position: absolute; width: 100%; height: 100%; background-image: radial-gradient(rgba(255,215,180,0.15) 1.5px, transparent 1.5px); background-size: 40px 40px; opacity: 0.45; }
+    @keyframes floatShape { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(25px,20px) rotate(6deg); } }
+
+    .main-content { position: relative; z-index: 2; }
+    .navbar-fixed { background: rgba(15,10,18,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(220,80,70,0.3); }
+    .navbar-brand { font-weight: 800; }
+    .nav-link { font-weight: 500; transition: 0.2s; color: white; }
+    .nav-link:hover { color: #ffb4a2 !important; transform: translateY(-2px); }
+    .card-modern { background: rgba(255,255,255,0.97); border-radius: 32px; border: none; box-shadow: 0 25px 40px -14px rgba(0,0,0,0.3); transition: 0.25s; height: 100%; }
+    .card-modern:hover { transform: translateY(-6px); }
+    .btn-modern-red { background: #bc1f2f; border: none; color: white; font-weight: 600; padding: 10px 28px; border-radius: 44px; transition: 0.2s; box-shadow: 0 5px 12px rgba(185,28,44,0.4); text-decoration: none; display: inline-block; }
+    .btn-modern-red:hover { background: #921829; transform: scale(1.02); color: white; }
+    .btn-outline-whatsapp { background: transparent; border: 2px solid #25d366; color: #25d366; font-weight: 600; padding: 10px 28px; border-radius: 44px; transition: 0.2s; text-decoration: none; display: inline-block; }
+    .btn-outline-whatsapp:hover { background: #25d366; color: white; transform: scale(1.02); }
+    .btn-outline-admin { background: transparent; border: 2px solid #fff; color: #fff; font-weight: 600; padding: 8px 22px; border-radius: 44px; transition: 0.2s; text-decoration: none; display: inline-block; font-size: 0.9rem; }
+    .btn-outline-admin:hover { background: #fff; color: #b91c2c; }
+    .accordion-button:not(.collapsed) { background-color: #fce8e6; color: #b91c2c; font-weight: 600; }
+    .carousel-control-prev, .carousel-control-next { width: 12%; background: rgba(0,0,0,0.2); border-radius: 60px; margin: auto 0; height: 50px; top: 45%; }
+    .carousel-control-prev:hover, .carousel-control-next:hover { background: rgba(185,28,44,0.75); }
+    .carousel-icon { font-size: 3rem; color: #b91c2c; background: #fff0ef; width: 90px; height: 90px; border-radius: 60px; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1.2rem; }
+    footer { background: rgba(8,5,14,0.85); backdrop-filter: blur(8px); border-top: 1px solid rgba(255,180,150,0.2); }
+    .social-icon { transition: 0.2s; display: inline-block; font-size: 1.4rem; color: white; margin: 0 0.5rem; }
+    .social-icon:hover { transform: scale(1.15); color: #ffb79e; }
+    .service-icon { font-size: 2.5rem; background: #fceaea; width: 70px; height: 70px; border-radius: 60px; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1rem; color: #b91c2c; }
+    .about-icon { font-size: 2rem; color: #b91c2c; background: #fff0ef; width: 70px; height: 70px; border-radius: 60px; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+    #formMsg { display: none; }
+  </style>
+</head>
+<body>
+
+<div class="geometric-bg">
+  <div class="geo-shape geo-circle-1"></div>
+  <div class="geo-shape geo-circle-2"></div>
+  <div class="geo-triangle"></div>
+  <div class="geo-triangle2"></div>
+  <div class="geo-polygon"></div>
+  <div class="geo-rect"></div>
+  <div class="geo-dots"></div>
+</div>
+
+<div class="main-content">
+  <nav class="navbar navbar-expand-lg navbar-fixed fixed-top py-2">
+    <div class="container">
+      <a class="navbar-brand text-white fs-3" href="#"><i class="fas fa-chart-line me-2"></i>Soma<span class="fw-light">Contabilidade</span></a>
+      <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="#">Início</a></li>
+          <li class="nav-item"><a class="nav-link" href="#servicos">Serviços</a></li>
+          <li class="nav-item"><a class="nav-link" href="#recolhimento">Informações</a></li>
+          <li class="nav-item"><a class="nav-link" href="#sobre">Sobre</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
+          <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+            <a class="btn-outline-admin" id="adminAreaLink" href="#" target="_blank" rel="noopener">
+              <i class="fas fa-user-shield me-1"></i> Área do Cliente
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div style="padding-top: 90px;"></div>
+
+  <!-- Carrossel -->
+  <div class="container my-4">
+    <div id="carrossel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carrossel" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#carrossel" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#carrossel" data-bs-slide-to="2"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="card-modern p-4 p-md-5 text-center mx-auto" style="max-width: 950px;">
+            <div class="carousel-icon"><i class="fas fa-chart-simple"></i></div>
+            <h2 class="mb-3 fw-bold">Gestão Estratégica <span class="text-danger">e Compliance</span></h2>
+            <p class="lead">Conciliação bancária, apuração de impostos e planejamento tributário.</p>
+            <a href="#contato" class="btn btn-modern-red mt-2">Quero saber mais <i class="fas fa-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="card-modern p-4 p-md-5 text-center mx-auto" style="max-width: 950px;">
+            <div class="carousel-icon"><i class="fas fa-file-invoice"></i></div>
+            <h2 class="mb-3 fw-bold">Obrigações Acessórias <span class="text-danger">sem atrasos</span></h2>
+            <p class="lead">SPED, ECD, ECF, eSocial. Fique em dia com o Fisco.</p>
+            <a href="#contato" class="btn btn-modern-red mt-2">Conhecer soluções <i class="fas fa-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="card-modern p-4 p-md-5 text-center mx-auto" style="max-width: 950px;">
+            <div class="carousel-icon"><i class="fas fa-hand-holding-dollar"></i></div>
+            <h2 class="mb-3 fw-bold">Controladoria <span class="text-danger">e Resultados</span></h2>
+            <p class="lead">Indicadores de desempenho, redução de custos e fluxo de caixa.</p>
+            <a href="#contato" class="btn btn-modern-red mt-2">Quero otimizar <i class="fas fa-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carrossel" data-bs-slide="prev"><span><i class="fas fa-chevron-left"></i></span></button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carrossel" data-bs-slide="next"><span><i class="fas fa-chevron-right"></i></span></button>
+    </div>
+  </div>
+
+  <!-- Accordion (recolhimento) -->
+  <div class="container my-5 pt-3" id="recolhimento">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="text-center mb-5">
+          <span class="badge bg-white text-dark px-3 py-2 rounded-pill"><i class="fas fa-chevron-circle-down me-1"></i> Conteúdo interativo</span>
+          <h2 class="mt-3 text-white fw-bold">Informações que você precisa saber</h2>
+        </div>
+        <div class="accordion" id="accordion">
+          <div class="accordion-item mb-3 border-0 rounded-4 shadow-sm">
+            <h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"><i class="fas fa-hand-holding-usd text-danger me-3"></i> Recolhimento de tributos e obrigações fiscais</button></h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordion"><div class="accordion-body">Garanta o recolhimento correto de IRPJ, CSLL, PIS, COFINS, ICMS, ISS. Planejamento tributário minucioso para evitar multas.</div></div>
+          </div>
+          <div class="accordion-item mb-3 border-0 rounded-4 shadow-sm">
+            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"><i class="fas fa-chart-line text-danger me-3"></i> Análise de custos e performance</button></h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordion"><div class="accordion-body">Segregação de custos, margem de contribuição, ponto de equilíbrio. Dashboards com KPIs.</div></div>
+          </div>
+          <div class="accordion-item border-0 rounded-4 shadow-sm">
+            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree"><i class="fas fa-rocket text-danger me-3"></i> Consultoria para empresas em expansão</button></h2>
+            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordion"><div class="accordion-body">Valuation, M&A, due diligence, estruturação societária.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cards de serviços (6) -->
+  <div class="container my-5" id="servicos">
+    <div class="text-center mb-5">
+      <h3 class="text-white fw-bold">Soluções contábeis <span class="border-bottom border-3 border-white pb-1">completas</span></h3>
+      <p class="text-white-50 mt-2">Atendimento personalizado para cada necessidade do seu negócio</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4"><div class="card-modern p-4 text-center h-100"><div class="service-icon"><i class="fas fa-building"></i></div><h5 class="fw-bold">Abertura de empresas</h5><p>Registro completo, escolha do regime tributário ideal e legalização rápida.</p></div></div>
+      <div class="col-md-6 col-lg-4"><div class="card-modern p-4 text-center h-100"><div class="service-icon"><i class="fas fa-file-signature"></i></div><h5 class="fw-bold">Escrituração digital</h5><p>Entrega de obrigações acessórias com precisão e dentro do prazo.</p></div></div>
+      <div class="col-md-6 col-lg-4"><div class="card-modern p-4 text-center h-100"><div class="service-icon"><i class="fas fa-chart-pie"></i></div><h5 class="fw-bold">BPO financeiro</h5><p>Terceirização da gestão financeira: contas a pagar/receber, conciliação bancária.</p></div></div>
+      <div class="col-md-6 col-lg-4"><div class="card-modern p-4 text-center h-100"><div class="service-icon"><i class="fas fa-calculator"></i></div><h5 class="fw-bold">Consultoria tributária</h5><p>Planejamento fiscal estratégico, recuperação de créditos tributários.</p></div></div>
+      <div class="col-md-6 col-lg-4"><div class="card-modern p-4 text-center h-100"><div class="service-icon"><i class="fas fa-users"></i></div><h5 class="fw-bold">Assessoria trabalhista</h5><p>Gestão completa da folha de pagamento, eSocial, admissões e rescisões.</p></div></div>
+      <div class="col-md-6 col-lg-4"><div class="card-modern p-4 text-center h-100"><div class="service-icon"><i class="fas fa-handshake"></i></div><h5 class="fw-bold">Planejamento sucessório</h5><p>Estruturação patrimonial, holding familiar e proteção do legado empresarial.</p></div></div>
+    </div>
+  </div>
+
+  <!-- Sobre -->
+  <div class="container my-5" id="sobre">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="card-modern p-4 p-lg-5">
+          <div class="text-center mb-4">
+            <div class="about-icon mx-auto"><i class="fas fa-building"></i></div>
+            <h2 class="fw-bold text-danger">Sobre a Soma Contabilidade</h2>
+            <div class="divider bg-danger mx-auto" style="width: 80px; height: 3px; margin-top: 8px;"></div>
+          </div>
+          <div class="row g-4">
+            <div class="col-md-6">
+              <h5><i class="fas fa-flag-checkered text-danger me-2"></i> Nossa História</h5>
+              <p>A Soma Contabilidade nasceu com o propósito de descomplicar a gestão fiscal e contábil de empresas de todos os portes, unindo tecnologia e atendimento próximo para gerar valor real ao cliente.</p>
+              <h5 class="mt-3"><i class="fas fa-eye text-danger me-2"></i> Missão</h5>
+              <p>Proporcionar segurança fiscal e inteligência financeira para que nossos clientes possam focar no crescimento do negócio.</p>
+            </div>
+            <div class="col-md-6">
+              <h5><i class="fas fa-gem text-danger me-2"></i> Valores</h5>
+              <ul>
+                <li>Ética e transparência acima de tudo</li>
+                <li>Inovação contínua em processos</li>
+                <li>Compromisso com resultados</li>
+                <li>Atendimento humanizado e próximo</li>
+              </ul>
+            </div>
+          </div>
+          <div class="text-center mt-4">
+            <a href="#contato" class="btn btn-modern-red mt-2">Fale com nossa equipe <i class="fas fa-arrow-right ms-2"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contato: formulário conectado à API pública do iServ -->
+  <div class="container my-5 pt-2 pb-4" id="contato">
+    <div class="row align-items-center">
+      <div class="col-lg-6 mb-4 mb-lg-0">
+        <div class="card-modern p-4 p-lg-5">
+          <i class="fas fa-envelope-open-text fa-3x text-danger mb-3"></i>
+          <h4>Pronto para uma gestão contábil de ponta?</h4>
+          <p>Preencha o formulário ou fale direto com nossa equipe.</p>
+          <div class="d-flex flex-wrap gap-3 mt-4">
+            <a href="tel:+551140028922" class="btn btn-modern-red px-4"><i class="fas fa-phone-alt me-2"></i>Ligar agora</a>
+            <a href="https://wa.me/5511912345678?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20servi%C3%A7os%20cont%C3%A1beis." target="_blank" class="btn btn-outline-whatsapp px-4"><i class="fab fa-whatsapp me-2"></i>WhatsApp</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="bg-white p-4 rounded-4 shadow-lg">
+          <h5 class="fw-bold mb-3"><i class="fas fa-paper-plane me-2 text-danger"></i> Envie sua mensagem</h5>
+
+          <form id="leadForm" novalidate>
+            <!-- Honeypot anti-spam (invisível para humanos) -->
+            <input type="text" name="website" id="website" style="position:absolute; left:-9999px;" tabindex="-1" autocomplete="off" />
+
+            <div class="mb-3">
+              <input type="text" name="nome" id="nome" class="form-control" placeholder="Seu nome completo" required minlength="2" />
+            </div>
+            <div class="mb-3">
+              <input type="email" name="email" id="email" class="form-control" placeholder="Seu melhor e-mail" />
+            </div>
+            <div class="mb-3">
+              <input type="text" name="telefone" id="telefone" class="form-control" placeholder="Telefone / WhatsApp" />
+            </div>
+            <div class="mb-3">
+              <textarea name="mensagem" id="mensagem" class="form-control" rows="3" placeholder="Como podemos ajudar?"></textarea>
+            </div>
+            <button type="submit" id="submitBtn" class="btn btn-modern-red w-100">
+              <i class="fas fa-envelope me-2"></i> Enviar mensagem
+            </button>
+            <div id="formMsg" class="mt-3 small text-center"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="text-white py-4 mt-2">
+    <div class="container text-center">
+      <p class="mb-0 small">© 2026 Soma Contabilidade · Excelência e inovação em gestão contábil.</p>
+      <div class="mt-2">
+        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // ATENÇÃO: ajuste PRODUCTION_API_URL para o endereço real da API quando publicar este site.
+  const PRODUCTION_API_URL = "https://iserv-api.onrender.com";
+  // ATENÇÃO: ajuste PRODUCTION_PAINEL_URL para o domínio real do painel iServ quando publicar.
+  const PRODUCTION_PAINEL_URL = "https://iserv-l1ji.onrender.com";
+  const isLocalEnvironment =
+    window.location.protocol === "file:" ||
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1";
+  const API_BASE_URL = isLocalEnvironment ? "http://localhost:3333" : PRODUCTION_API_URL;
+  const PAINEL_URL = isLocalEnvironment ? "http://localhost:4000" : PRODUCTION_PAINEL_URL;
+  const EMPRESA_SLUG = "soma-contabilidade";
+
+  // O botão "Área do Cliente" leva o dono da empresa para o painel administrativo
+  // do iServ (login), onde ele gerencia clientes, agenda, financeiro etc.
+  document.getElementById("adminAreaLink").href = `${PAINEL_URL}/login`;
+
+  const form = document.getElementById("leadForm");
+  const submitBtn = document.getElementById("submitBtn");
+  const formMsg = document.getElementById("formMsg");
+
+  function showMessage(text, type) {
+    formMsg.textContent = text;
+    formMsg.style.display = "block";
+    formMsg.className = "mt-3 small text-center " + (type === "success" ? "text-success" : "text-danger");
+  }
+
+  form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    formMsg.style.display = "none";
+
+    const payload = {
+      nome: document.getElementById("nome").value.trim(),
+      email: document.getElementById("email").value.trim(),
+      telefone: document.getElementById("telefone").value.trim(),
+      mensagem: document.getElementById("mensagem").value.trim(),
+      website: document.getElementById("website").value.trim(),
+    };
+
+    if (!payload.nome || payload.nome.length < 2) {
+      showMessage("Por favor, informe seu nome completo.", "error");
+      return;
+    }
+
+    if (!payload.email && !payload.telefone) {
+      showMessage("Informe ao menos um e-mail ou telefone para contato.", "error");
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Enviando...';
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/public/${EMPRESA_SLUG}/leads`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Não foi possível enviar sua mensagem.");
+      }
+
+      showMessage("Mensagem enviada com sucesso! Em breve nossa equipe entrará em contato.", "success");
+      form.reset();
+    } catch (error) {
+      showMessage(error.message || "Erro ao enviar. Tente novamente em alguns instantes.", "error");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fas fa-envelope me-2"></i> Enviar mensagem';
+    }
+  });
+</script>
+
+</body>
+</html>
