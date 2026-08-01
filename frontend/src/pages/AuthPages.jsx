@@ -112,7 +112,13 @@ export function LoginPage() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      empresaSlug: "demo",
+      email: "admin@demo.com",
+      senha: "senha123456",
+    },
+  });
 
   async function onSubmit(data) {
     setServerError("");
