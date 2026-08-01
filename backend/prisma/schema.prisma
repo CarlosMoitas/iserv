@@ -1,0 +1,331 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum StatusUsuario {
+  ATIVO
+  INATIVO
+}
+
+enum StatusCliente {
+  ATIVO
+  INATIVO
+}
+
+enum StatusAgendamento {
+  AGENDADO
+  CONFIRMADO
+  CONCLUIDO
+  CANCELADO
+}
+
+enum StatusOrdem {
+  ABERTA
+  EM_ANDAMENTO
+  CONCLUIDA
+  CANCELADA
+}
+
+enum StatusOrcamento {
+  RASCUNHO
+  ENVIADO
+  APROVADO
+  RECUSADO
+  EXPIRADO
+}
+
+enum StatusPagamento {
+  PENDENTE
+  PAGO
+  CANCELADO
+}
+
+enum TipoMovimento {
+  ENTRADA
+  SAIDA
+}
+
+model Empresa {
+  id           String         @id @default(cuid())
+  nome         String
+  slug         String         @unique
+  documento    String?
+  email        String
+  telefone     String?
+  logoUrl      String?        @map("logo_url")
+  plano        String         @default("STARTER")
+  modulos      ModuloEmpresa[]
+  usuarios     Usuario[]
+  clientes     Cliente[]
+  servicos     Servico[]
+  agendamentos Agendamento[]
+  ordens       OrdemServico[]
+  orcamentos   Orcamento[]
+  produtos     Produto[]
+  pagamentos   Pagamento[]
+  configuracao Configuracao?
+  integracoes  Integracao[]
+  createdAt    DateTime       @default(now()) @map("created_at")
+  updatedAt    DateTime       @updatedAt @map("updated_at")
+
+  @@map("empresas")
+}
+
+model Usuario {
+  id           String        @id @default(cuid())
+  empresaId    String        @map("empresa_id")
+  empresa      Empresa       @relation(fields: [empresaId], references: [id], onDelete: Cascade)
+  nome         String
+  email        String
+  senhaHash    String        @map("senha_hash")
+  cargo        String        @default("MEMBRO")
+  status       StatusUsuario  @default(ATIVO)
+  avatarUrl    String?       @map("avatar_url")
+  agendamentos Agendamento[]
+  ordens       OrdemServico[]
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+
+  @@unique([empresaId, email])
+  @@index([empresaId])
+  @@map("usuarios")
+}
+
+model ModuloEmpresa {
+  id        String   @id @default(cuid())
+  empresaId String   @map("empresa_id")
+  empresa   Empresa  @relation(fields: [empresaId], references: [id], onDelete: Cascade)
+  chave     String
+  habilitado Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([empresaId, chave])
+  @@index([empresaId])
+  @@map("modulos_empresa")
+}
+
+model Cliente {
+  id           String         @id @default(cuid())
+  empresaId    String         @map("empresa_id")
+  empresa      Empresa        @relation(fields: [empresaId], references: [id], onDelete: Cascade)
+  nome         String
+  email        String?
+  telefone     String?
+  documento    String?
+  observacoes  String?
+  status       StatusCliente   @default(ATIVO)
+  endereco     Json?
+  agendamentos Agendamento[]
+  ordens       OrdemServico[]
+  orcamentos   Orcamento[]
+  pagamentos   Pagamento[]
+  createdAt    DateTime       @default(now()) @map("created_at")
+  updatedAt    DateTime       @updatedAt @map("updated_at")
+
+  @@index([empresaId])
+  @@index([empresaId, nome])
+  @@map("clientes")
+}
+
+model Servico {
+  id             String          @id @default(cuid())
+  empresaId      String          @map("empresa_id")
+  empresa        Empresa         @relation(fields: [empresaId], references: [id], onDelete: Cascade)
+  nome           String
+  descricao      String?
+  duracaoMinutos Int             @default(60) @map("duracao_minutos")
+  preco          Decimal         @db.Decimal(12, 2)
+  ativo          Boolean         @default(true)
+  agendamentos   Agendamento[]
+  itensOrdem     ItemOrdemServico[]
+  itensOrcamento ItemOrcamento[]
+  createdAt      DateTime        @default(now()) @map("created_at")
+  updatedAt      DateTime        @updatedAt @map("updated_at")
+
+  @@index([empresaId])
+  @@map("servicos")
+}
+
+model Agendamento {
+  id          String            @id @default(cuid())
+  empresaId   String            @map("empresa_id")
+  empresa     Empresa           @relation(fields: [empresaId], references: [id], onDelete: Cascade)
+  clienteId   String            @map("cliente_id")
+  cliente     Cliente           @relation(fields: [clienteId], references: [id], onDelete: Restrict)
+  servicoId   String?           @map("servico_id")
+  servico     Servico?          @relation(fields: [servicoId], references: [id], onDelete: SetNull)
+  usuarioId   String?           @map("usuario_id")
+  usuario     Usuario?          @relation(fields: [usuarioId], references: [id], onDelete: SetNull)
+  titulo      String
+  inicio      DateTime
+  fim         DateTime
+  status      StatusAgendamento @default(AGENDADO)
+  observacoes String?
+  createdAt   DateTime           @default(now()) @map("created_at")
+  updatedAt   DateTime           @updatedAt @map("updated_at")
+
+  @@index([empresaId])
+  @@index([empresaId, inicio])
+  @@map("agendamentos")
+}
+
+model OrdemServico {
+  id            String          @id @default(cuid())
+  empresaId     String          @map("empresa_id")
+  empresa       Empresa         @relation(fields: [empresaId], references: [id], onDelete: Cascade)
+  clienteId     String          @map("cliente_id")
+  cliente       Cliente         @relation(fields: [clienteId], references: [id], onDelete: Restrict)
+  responsavelId String?         @map("responsavel_id")
+  responsavel   Usuario?        @relation(fields: [responsavelId], references: [id], onDelete: SetNull)
+  numero        Int
+  titulo        String
+  descricao     String?
+  status        StatusOrdem     @default(ABERTA)
+  valorTotal    Decimal         @default(0) @map("valor_total") @db.Decimal(12, 2)
+  itens         ItemOrdemServico[]
+  pagamentos    Pagamento[]
+  createdAt     DateTime        @default(now()) @map("created_at")
+  updatedAt     DateTime        @updatedAt @map("updated_at")
+
+  @@unique([empresaId, numero])
+  @@index([empresaId])
+  @@map("ordens_servico")
+}
+
+model ItemOrdemServico {
+  id           String        @id @default(cuid())
+  ordemId      String        @map("ordem_id")
+  ordem        OrdemServico  @relation(fields: [ordemId], references: [id], onDelete: Cascade)
+  empresaId    String        @map("empresa_id")
+  servicoId    String?       @map("servico_id")
+  servico      Servico?      @relation(fields: [servicoId], references: [id], onDelete: SetNull)
+  descricao    String
+  quantidade   Decimal       @default(1) @db.Decimal(10, 2)
+  valorUnitario Decimal      @map("valor_unitario") @db.Decimal(12, 2)
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+
+  @@index([empresaId])
+  @@index([ordemId])
+  @@map("itens_ordem_servico")
+}
+
+model Orcamento {
+  id          String          @id @default(cuid())
+  empresaId   String          @map("empresa_id")
+  empresa     Empresa         @relation(fields: [empresaId], references: [id], onDelete: Cascade)
+  clienteId   String          @map("cliente_id")
+  cliente     Cliente         @relation(fields: [clienteId], references: [id], onDelete: Restrict)
+  numero      Int
+  validade    DateTime?
+  status      StatusOrcamento @default(RASCUNHO)
+  observacoes String?
+  valorTotal  Decimal         @default(0) @map("valor_total") @db.Decimal(12, 2)
+  itens       ItemOrcamento[]
+  createdAt   DateTime        @default(now()) @map("created_at")
+  updatedAt   DateTime        @updatedAt @map("updated_at")
+
+  @@unique([empresaId, numero])
+  @@index([empresaId])
+  @@map("orcamentos")
+}
+
+model ItemOrcamento {
+  id            String      @id @default(cuid())
+  orcamentoId   String      @map("orcamento_id")
+  orcamento     Orcamento   @relation(fields: [orcamentoId], references: [id], onDelete: Cascade)
+  empresaId     String      @map("empresa_id")
+  servicoId     String?     @map("servico_id")
+  servico       Servico?    @relation(fields: [servicoId], references: [id], onDelete: SetNull)
+  descricao     String
+  quantidade    Decimal     @default(1) @db.Decimal(10, 2)
+  valorUnitario Decimal     @map("valor_unitario") @db.Decimal(12, 2)
+  createdAt     DateTime    @default(now()) @map("created_at")
+  updatedAt     DateTime    @updatedAt @map("updated_at")
+
+  @@index([empresaId])
+  @@index([orcamentoId])
+  @@map("itens_orcamento")
+}
+
+model Produto {
+  id          String      @id @default(cuid())
+  empresaId   String      @map("empresa_id")
+  empresa     Empresa     @relation(fields: [empresaId], references: [id], onDelete: Cascade)
+  nome        String
+  sku         String?
+  descricao   String?
+  estoque     Decimal     @default(0) @db.Decimal(12, 2)
+  estoqueMin  Decimal     @default(0) @map("estoque_min") @db.Decimal(12, 2)
+  precoVenda  Decimal     @map("preco_venda") @db.Decimal(12, 2)
+  custo       Decimal     @default(0) @db.Decimal(12, 2)
+  ativo       Boolean     @default(true)
+  pagamentos  Pagamento[]
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime    @updatedAt @map("updated_at")
+
+  @@unique([empresaId, sku])
+  @@index([empresaId])
+  @@map("produtos")
+}
+
+model Pagamento {
+  id            String          @id @default(cuid())
+  empresaId     String          @map("empresa_id")
+  empresa       Empresa         @relation(fields: [empresaId], references: [id], onDelete: Cascade)
+  clienteId     String?         @map("cliente_id")
+  cliente       Cliente?        @relation(fields: [clienteId], references: [id], onDelete: SetNull)
+  ordemId       String?         @map("ordem_id")
+  ordem         OrdemServico?   @relation(fields: [ordemId], references: [id], onDelete: SetNull)
+  produtoId     String?         @map("produto_id")
+  produto       Produto?        @relation(fields: [produtoId], references: [id], onDelete: SetNull)
+  descricao     String
+  tipo          TipoMovimento
+  status        StatusPagamento @default(PENDENTE)
+  valor         Decimal         @db.Decimal(12, 2)
+  vencimento    DateTime?       @map("vencimento")
+  dataPagamento DateTime?       @map("data_pagamento")
+  createdAt     DateTime        @default(now()) @map("created_at")
+  updatedAt     DateTime        @updatedAt @map("updated_at")
+
+  @@index([empresaId])
+  @@index([empresaId, status])
+  @@map("pagamentos")
+}
+
+model Configuracao {
+  id             String   @id @default(cuid())
+  empresaId      String   @unique @map("empresa_id")
+  empresa        Empresa  @relation(fields: [empresaId], references: [id], onDelete: Cascade)
+  tema           String   @default("light")
+  moeda          String   @default("BRL")
+  timezone       String   @default("America/Sao_Paulo")
+  notificacoes   Json?
+  preferencias   Json?
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  @@map("configuracoes")
+}
+
+model Integracao {
+  id          String   @id @default(cuid())
+  empresaId   String   @map("empresa_id")
+  empresa     Empresa  @relation(fields: [empresaId], references: [id], onDelete: Cascade)
+  tipo        String
+  nome        String
+  ativo       Boolean  @default(false)
+  configuracao Json?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@unique([empresaId, tipo])
+  @@index([empresaId])
+  @@map("integracoes")
+}
