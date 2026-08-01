@@ -24,15 +24,17 @@ services:
 
   - type: web
     name: iserv-frontend
-    runtime: node
+    env: static
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
-    plan: free
     envVars:
       - key: VITE_API_URL
         value: https://iserv-api.onrender.com
-        sync: false
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
 
 databases:
   - name: iserv-db
