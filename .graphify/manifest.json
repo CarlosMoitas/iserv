@@ -1,1 +1,102 @@
-{}
+{
+  "E:/iserv/backend/prisma/migrations/20260731202519_initial/migration.sql": {
+    "mtime": 1785589259725.258,
+    "hash": "60df65cbfe27b6ce8f7072176495cb16"
+  },
+  "E:/iserv/backend/prisma/migrations/20260801000000_add_plano_assinatura/migration.sql": {
+    "mtime": 1785600227432.8918,
+    "hash": "a07ad9f7e7127099b88fdb629f747e14"
+  },
+  "E:/iserv/backend/prisma/seed.js": {
+    "mtime": 1785598647455.9739,
+    "hash": "13c452245188329414f6118642126bd1"
+  },
+  "E:/iserv/backend/src/lib/prisma.js": {
+    "mtime": 1785589259758.7144,
+    "hash": "ccaaa3c9b10de615b88474aaa2dac33f"
+  },
+  "E:/iserv/backend/src/middlewares/auth.js": {
+    "mtime": 1785598558944.8528,
+    "hash": "38bbd31d1954a7f0bc19ef669263c5ef"
+  },
+  "E:/iserv/backend/src/routes/auth.js": {
+    "mtime": 1785598536057.4597,
+    "hash": "39fee545507123af5ce1d49f5641dd6c"
+  },
+  "E:/iserv/backend/src/routes/dashboard.js": {
+    "mtime": 1785598586291.137,
+    "hash": "2464d67cd24cab60e1cff8e58f8ddc90"
+  },
+  "E:/iserv/backend/src/routes/public.js": {
+    "mtime": 1785605871806.8218,
+    "hash": "7c64e47323c0ab2e711bb2374968c8fe"
+  },
+  "E:/iserv/backend/src/routes/resources.js": {
+    "mtime": 1785598571510.5767,
+    "hash": "ab4ad821fa78f466732ac59dcb7e00f6"
+  },
+  "E:/iserv/backend/src/server.js": {
+    "mtime": 1785605970474.9412,
+    "hash": "7429999365126f8899090fe46231cfa2"
+  },
+  "E:/iserv/frontend/postcss.config.js": {
+    "mtime": 1785589259866.1924,
+    "hash": "c735540bb63936a123bc867d950c9f69"
+  },
+  "E:/iserv/frontend/src/components/ResourceList.jsx": {
+    "mtime": 1785589259943.22,
+    "hash": "f6177492a1d6190935f2b633fa8cedc0"
+  },
+  "E:/iserv/frontend/src/components/ui.jsx": {
+    "mtime": 1785589259951.7268,
+    "hash": "cff6ad3a027607529a46c46be4f9905b"
+  },
+  "E:/iserv/frontend/src/contexts/AuthContext.jsx": {
+    "mtime": 1785589259968.2527,
+    "hash": "9480cd1d9f244cc415b90a5d5348d1e0"
+  },
+  "E:/iserv/frontend/src/contexts/ThemeContext.jsx": {
+    "mtime": 1785589259975.3545,
+    "hash": "97996d472058577de1b8f5a82ea4c26c"
+  },
+  "E:/iserv/frontend/src/layouts/AppLayout.jsx": {
+    "mtime": 1785589259991.4255,
+    "hash": "429d775c8438e27ec5243d141c3645a2"
+  },
+  "E:/iserv/frontend/src/lib/utils.js": {
+    "mtime": 1785589260008.0251,
+    "hash": "d1c4afdedf414ae731f58a28173db977"
+  },
+  "E:/iserv/frontend/src/main.jsx": {
+    "mtime": 1785589259924.395,
+    "hash": "df7389d0eb9df21509b44cb29fc3e9da"
+  },
+  "E:/iserv/frontend/src/pages/AuthPages.jsx": {
+    "mtime": 1785618273966.5796,
+    "hash": "87ed32c23cb15402c075604dcc369bfd"
+  },
+  "E:/iserv/frontend/src/pages/CrudPages.jsx": {
+    "mtime": 1785589260034.7866,
+    "hash": "8b7c167306d9756cff87fe4e345e5cb1"
+  },
+  "E:/iserv/frontend/src/pages/DashboardPage.jsx": {
+    "mtime": 1785589260041.945,
+    "hash": "ec9a3742aa54ef14202af45bec181afd"
+  },
+  "E:/iserv/frontend/src/routes/AppRouter.jsx": {
+    "mtime": 1785589260057.315,
+    "hash": "8ea789c4089be70c9ecbca0257bbb1f7"
+  },
+  "E:/iserv/frontend/src/services/api.js": {
+    "mtime": 1785589260074.08,
+    "hash": "c8baa6399f115a9ab75354d0734fc968"
+  },
+  "E:/iserv/frontend/tailwind.config.js": {
+    "mtime": 1785589259874.692,
+    "hash": "4def35854b3b7cf4ad556b805cb9d4ab"
+  },
+  "E:/iserv/frontend/vite.config.js": {
+    "mtime": 1785589259883.8237,
+    "hash": "96590c1858761612f88460bd47ea3469"
+  }
+}

@@ -12,8 +12,6 @@ import {
   Menu,
   Moon,
   Package,
-  PanelLeftClose,
-  PanelLeftOpen,
   Scissors,
   Settings,
   Sun,
@@ -155,7 +153,7 @@ export function AppLayout() {
           collapsed ? "lg:pl-[84px]" : "lg:pl-64"
         }`}
       >
-        <header className="sticky top-0 z-20 flex h-20 items-center justify-between border-b border-border bg-background/85 px-4 backdrop-blur-xl sm:px-6 lg:px-8">
+        <header className="sticky top-0 z-20 flex h-16 items-center justify-between border-b border-border bg-background/85 px-3 backdrop-blur-xl sm:h-20 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
             <Button
               variant="ghost"

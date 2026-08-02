@@ -159,7 +159,8 @@ export function ResourceList({
           <EmptyState icon={EmptyIcon} label={emptyLabel} />
         ) : (
           <>
-            <div className="overflow-x-auto">
+            {/* Desktop / tablet: tabela tradicional (sem scroll horizontal a partir de lg) */}
+            <div className="hidden lg:block">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-border">
@@ -220,6 +221,54 @@ export function ResourceList({
                 </tbody>
               </table>
             </div>
+
+            {/* Mobile / tablet estreito: lista de cards (sem scroll horizontal, sem cards desalinhados) */}
+            <ul className="divide-y divide-border lg:hidden">
+              {items.map((item) => {
+                const primaryCol = columns[0];
+                const secondaryCols = columns.slice(1);
+                return (
+                  <li key={item.id} className="p-4">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="min-w-0 flex-1">
+                        {primaryCol.render ? primaryCol.render(item) : (
+                          <p className="font-semibold">{item[primaryCol.key] ?? "—"}</p>
+                        )}
+                      </div>
+                      <div className="flex shrink-0 items-center gap-1">
+                        {onEdit && (
+                          <Button variant="ghost" size="sm" onClick={() => onEdit(item)}>
+                            Editar
+                          </Button>
+                        )}
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 text-rose-500 hover:bg-rose-500/10"
+                          onClick={() => handleDelete(item.id)}
+                          disabled={deleting === item.id}
+                        >
+                          <Trash2 size={14} />
+                        </Button>
+                      </div>
+                    </div>
+                    {secondaryCols.length > 0 && (
+                      <dl className="mt-3 grid grid-cols-2 gap-2.5 text-xs">
+                        {secondaryCols.map((col) => (
+                          <div key={col.key} className="min-w-0">
+                            <dt className="text-muted-foreground">{col.label}</dt>
+                            <dd className="mt-0.5 truncate font-medium text-foreground">
+                              {col.render ? col.render(item) : (item[col.key] ?? "—")}
+                            </dd>
+                          </div>
+                        ))}
+                      </dl>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+
             <Pagination page={page} totalPages={totalPages} onChange={(p) => load(p, search)} />
           </>
         )}

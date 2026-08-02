@@ -36,6 +36,17 @@ services:
         source: /*
         destination: /index.html
 
+  # Landing Page pública (Experiência do Cliente Final) — Soma Contabilidade.
+  # Site estático puro (HTML/CSS/JS), sem build step. As URLs de API/painel
+  # em produção já estão fixadas em sites/soma-contabilidade/assets/site.js
+  # (PRODUCTION_API_URL / PRODUCTION_PAINEL_URL).
+  - type: web
+    name: iserv-site-soma-contabilidade
+    env: static
+    rootDir: sites/soma-contabilidade
+    buildCommand: "echo 'Site estático, sem build necessário.'"
+    staticPublishPath: .
+
 databases:
   - name: iserv-db
     databaseName: iserv
