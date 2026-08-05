@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <title>Trainner | Transformação com Atitude</title>
+
+    <!-- CSS (local) -->
+    <link rel="stylesheet" href="./assets/vendor/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/vendor/fontawesome/all.min.css" />
+    <link rel="stylesheet" href="./assets/styles.css" />
+
+    <!-- Google Font (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+  </head>
+  <body>
+    <div class="content-wrapper">
+      <!-- MENU NAVEGAÇÃO - com botão fechar no mobile -->
+      <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="#home">🔥 TRAINNER<span style="color: #f97316;"> | OPENBITI</span></a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-2">
+              <li class="nav-item"><a class="nav-link active" href="#home">HOME</a></li>
+              <li class="nav-item"><a class="nav-link" href="#sobre">SOBRE</a></li>
+              <li class="nav-item"><a class="nav-link" href="#servicos">SERVIÇOS</a></li>
+              <li class="nav-item"><a class="nav-link" href="#depoimentos">DEPOIMENTOS</a></li>
+              <li class="nav-item"><a class="nav-link" href="#planos">PLANOS</a></li>
+              <li class="nav-item"><a class="nav-link" href="#contato">CONTATO</a></li>
+              <!-- Botão fechar menu (aparece apenas em mobile) -->
+              <li class="nav-item d-lg-none w-100">
+                <div class="btn-close-menu" id="closeMobileMenuBtn">
+                  <i class="fas fa-times-circle me-2"></i> Fechar menu
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- HERO SECTION -->
+      <section id="home" class="pt-5 mt-5">
+        <div class="container pt-4 pb-5">
+          <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+              <span class="orange-badge"><i class="fas fa-dumbbell me-1"></i> Personal Trainer Premium</span>
+              <h1 class="display-3 fw-bold mt-3 hero-title">
+                FORJA <span style="color: #f97316;">SUA MELHOR</span> VERSÃO
+              </h1>
+              <p class="lead mt-3" style="color: #cfcfcf;">
+                Treinos sob medida, evolução real e motivação incomparável. Chega de desculpas, alcance resultados que duram
+                para sempre.
+              </p>
+              <div class="d-flex gap-3 mt-4 flex-wrap">
+                <a href="#contato" class="btn btn-orange px-4 py-2"><i class="fas fa-calendar-alt me-2"></i>Agende sua aula</a>
+                <a href="#servicos" class="btn btn-outline-orange px-4 py-2"
+                  ><i class="fas fa-play-circle me-2"></i>Conhecer métodos</a
+                >
+              </div>
+            </div>
+            <div class="col-lg-6 text-center">
+              <img
+                src="./assets/images/hero.png"
+                alt="personal trainer hero"
+                class="img-fluid rounded-4 shadow-lg"
+                style="border: 1px solid #f97316; object-fit: cover;"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SOBRE -->
+      <section id="sobre" class="py-5">
+        <div class="container py-4">
+          <div class="text-center mb-5">
+            <span class="orange-badge"><i class="fas fa-user-check"></i> QUEM SOU</span>
+            <h2 class="section-title mt-2">OPENBITI · Coach & Trainer</h2>
+            <p class="mx-auto" style="max-width: 700px;">Especialista em transformação física e mental, com mais de 12 anos de estrada</p>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-lg-10">
+              <div class="card-dark p-4 p-lg-5">
+                <div class="d-flex flex-wrap align-items-center gap-4 mb-4">
+                  <i class="fas fa-quote-left fa-3x" style="color: #f97316;"></i>
+                  <p class="fs-5 fw-light">
+                    Acredito que o treino vai além da estética: é sobre disciplina, saúde e autoconfiança. Com estratégia e
+                    ciência, consigo resultados reais.
+                  </p>
+                </div>
+                <p>
+                  <strong>✔️ Formação em Educação Física e pós em Treinamento Funcional</strong> <br />
+                  ✔️ Método exclusivo que une periodização, nutrição adaptada e acompanhamento psicológico.
+                </p>
+
+                <div class="mt-4">
+                  <button
+                    class="btn btn-outline-orange"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseBio"
+                    aria-expanded="false"
+                    aria-controls="collapseBio"
+                  >
+                    <i class="fas fa-angle-down me-1"></i> Ler mais sobre minha filosofia
+                  </button>
+                  <div class="collapse mt-3" id="collapseBio">
+                    <div class="collapse-text">
+                      <i class="fas fa-brain me-2" style="color: #f97316;"></i>
+                      Minha metodologia é 100% individualizada: cada aluno recebe análise biomecânica, periodização inteligente e
+                      reavaliação constante. Já ajudei +300 pessoas a emagrecer, ganhar massa muscular ou melhorar performance
+                      esportiva. Acredito na consistência, não em milagres. Transformo hábitos com propósito.
+                      <div class="mt-3 d-flex gap-3 flex-wrap">
+                        <span class="badge bg-dark text-orange border border-orange">🏆 Campeão regional de fisiculturismo</span>
+                        <span class="badge bg-dark text-orange border border-orange">📚 Consultor em alto rendimento</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SERVIÇOS -->
+      <section id="servicos" class="py-5">
+        <div class="container">
+          <div class="text-center mb-5">
+            <span class="orange-badge"><i class="fas fa-dumbbell"></i> O QUE OFEREÇO</span>
+            <h2 class="section-title">Treinos que <span style="color: #f97316;">transcendem</span></h2>
+            <p>Soluções completas para você evoluir em qualquer fase da vida</p>
+          </div>
+          <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+              <div class="card-dark p-4 text-center h-100">
+                <i class="fas fa-running icon-lg mb-3"></i>
+                <h4 class="fw-bold">Personal Presencial</h4>
+                <p>Acompanhamento individual na sua casa, parque ou studio. Técnica e segurança garantidas.</p>
+                <button
+                  class="btn btn-sm btn-link text-orange"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapsePresencial"
+                  style="color: #f97316;"
+                >
+                  + detalhes
+                </button>
+                <div class="collapse mt-2" id="collapsePresencial">
+                  <div class="small bg-black bg-opacity-50 p-2 rounded">
+                    Sessões de 1h, avaliação postural, checkpoints semanais e suporte via whatsapp 24/7.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <div class="card-dark p-4 text-center h-100">
+                <i class="fas fa-laptop-code icon-lg mb-3"></i>
+                <h4 class="fw-bold">Online Coaching</h4>
+                <p>Planilhas personalizadas, análise de vídeos e consultoria nutricional de suporte.</p>
+                <button
+                  class="btn btn-sm btn-link text-orange"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseOnline"
+                  style="color: #f97316;"
+                >
+                  + detalhes
+                </button>
+                <div class="collapse mt-2" id="collapseOnline">
+                  <div class="small bg-black bg-opacity-50 p-2 rounded">
+                    Check-in quinzenal, correção de execução via vídeo e ajustes de treino conforme sua evolução.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <div class="card-dark p-4 text-center h-100">
+                <i class="fas fa-heartbeat icon-lg mb-3"></i>
+                <h4 class="fw-bold">Reabilitação & Mobilidade</h4>
+                <p>Focado em recuperação de lesões, dores crônicas e ganho de flexibilidade.</p>
+                <button
+                  class="btn btn-sm btn-link text-orange"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseReab"
+                  style="color: #f97316;"
+                >
+                  + detalhes
+                </button>
+                <div class="collapse mt-2" id="collapseReab">
+                  <div class="small bg-black bg-opacity-50 p-2 rounded">
+                    Protocolos baseados em fisioterapia esportiva + fortalecimento funcional para prevenir recidivas.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DEPOIMENTOS -->
+      <section id="depoimentos" class="py-5">
+        <div class="container">
+          <div class="text-center mb-5">
+            <span class="orange-badge"><i class="fas fa-star"></i> Resultados reais</span>
+            <h2 class="section-title">O que <span style="color: #f97316;">nossos alunos</span> dizem</h2>
+          </div>
+          <div class="row g-4">
+            <div class="col-md-6">
+              <div class="card-dark p-4 h-100">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                  <i class="fas fa-user-circle fa-3x" style="color: #f97316;"></i>
+                  <div>
+                    <h5 class="mb-0">Mariana Lins</h5>
+                    <small>Perda de 12kg em 5 meses</small>
+                  </div>
+                </div>
+                <p>
+                  "Treinar com o OPENBITI foi um divisor de águas. Além do físico, minha autoestima mudou totalmente. Metodologia
+                  impecável!"
+                </p>
+                <button class="btn btn-sm btn-outline-orange" type="button" data-bs-toggle="collapse" data-bs-target="#depo1">
+                  Ler depoimento completo
+                </button>
+                <div class="collapse mt-2" id="depo1">
+                  <div class="collapse-text small">
+                    "Eu já tinha tentado várias dietas e treinos de internet, mas só com o acompanhamento correto consegui
+                    resultado sustentável. Hoje tenho mais disposição e força. O suporte do OPENBITI me motivou até nos dias
+                    difíceis. Recomendo a todos!"
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card-dark p-4 h-100">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                  <i class="fas fa-user-circle fa-3x" style="color: #f97316;"></i>
+                  <div>
+                    <h5 class="mb-0">Carlos Eduardo</h5>
+                    <small>Hipertrofia +20kg no supino</small>
+                  </div>
+                </div>
+                <p>
+                  "Nunca fui de treinar pesado, mas o método progressivo me fez quebrar barreiras. Ambiente motivador e
+                  profissional."
+                </p>
+                <button class="btn btn-sm btn-outline-orange" type="button" data-bs-toggle="collapse" data-bs-target="#depo2">
+                  Ler depoimento completo
+                </button>
+                <div class="collapse mt-2" id="depo2">
+                  <div class="collapse-text small">
+                    "A evolução foi surreal: ganhei massa magra, melhorei minha postura e hoje meu dia começa com energia total.
+                    O diferencial é o olhar clínico e os ajustes constantes. Sou grato demais!"
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-12">
+              <div class="card-dark p-4">
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                  <div><i class="fas fa-chart-line fa-2x me-2" style="color: #f97316;"></i> +250 alunos transformados</div>
+                  <div><i class="fas fa-calendar-week me-1"></i> Milhares de sessões realizadas</div>
+                  <div><i class="fas fa-trophy"></i> Certificação internacional</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PLANOS -->
+      <section id="planos" class="py-5">
+        <div class="container">
+          <div class="text-center mb-5">
+            <span class="orange-badge">Investimento</span>
+            <h2 class="section-title">Planos <span style="color: #f97316;">exclusivos</span></h2>
+          </div>
+          <div class="row g-4 justify-content-center">
+            <div class="col-md-6 col-lg-5">
+              <div class="card-dark p-4 text-center h-100">
+                <i class="fas fa-calendar-alt fa-3x mb-3" style="color: #f97316;"></i>
+                <h3>Plano Mensal</h3>
+                <p class="display-6 fw-bold">R$ 297<span style="font-size: 1rem;">/mês</span></p>
+                <ul class="list-unstyled mt-3">
+                  <li><i class="fas fa-check-circle me-2" style="color: #f97316;"></i> 4 sessões presenciais/semana</li>
+                  <li><i class="fas fa-check-circle me-2" style="color: #f97316;"></i> Acompanhamento via app</li>
+                  <li><i class="fas fa-check-circle me-2" style="color: #f97316;"></i> Avaliação física mensal</li>
+                </ul>
+                <button class="btn btn-orange w-100 mt-3" data-bs-toggle="collapse" data-bs-target="#detalhesPlano">
+                  Ver detalhes
+                </button>
+                <div class="collapse mt-3" id="detalhesPlano">
+                  <div class="small bg-black p-2 rounded">
+                    Inclui protocolo nutricional básico, grupo vip de alunos e suporte direto no whatsapp. Renovação automática
+                    com desconto fidelidade.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-5">
+              <div class="card-dark p-4 text-center h-100 border border-warning">
+                <i class="fas fa-crown fa-3x mb-3" style="color: #f97316;"></i>
+                <span class="badge bg-orange text-dark mb-2">MAIS ESCOLHIDO</span>
+                <h3>Plano Trimestral</h3>
+                <p class="display-6 fw-bold">R$ 797<span style="font-size: 1rem;">/3 meses</span></p>
+                <ul class="list-unstyled mt-3">
+                  <li><i class="fas fa-check-circle me-2" style="color: #f97316;"></i> 6 sessões/semana + bônus</li>
+                  <li><i class="fas fa-check-circle me-2" style="color: #f97316;"></i> Consultoria de suplementação</li>
+                  <li><i class="fas fa-check-circle me-2" style="color: #f97316;"></i> 2 avaliações de bioimpedância</li>
+                </ul>
+                <a href="#contato" class="btn btn-orange w-100 mt-3">Garantir vaga</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTATO -->
+      <section id="contato" class="py-5">
+        <div class="container">
+          <div class="row g-5 align-items-center">
+            <div class="col-lg-5">
+              <span class="orange-badge">Fale comigo</span>
+              <h2 class="section-title mt-2">Vamos transformar <span style="color: #f97316;">seu corpo</span> e mente</h2>
+              <p class="lead mt-3">
+                Entre em contato agora mesmo e agende uma aula experimental gratuita. Sem burocracia, só resultados.
+              </p>
+              <div class="mt-4 d-flex flex-column gap-3">
+                <div><i class="fas fa-phone-alt me-3" style="color: #f97316;"></i> (11) 99999-8787</div>
+                <div><i class="fab fa-whatsapp me-3" style="color: #f97316;"></i> (11) 98888-1234</div>
+                <div><i class="fas fa-envelope me-3" style="color: #f97316;"></i> contato@trainner.com</div>
+                <div><i class="fas fa-map-marker-alt me-3" style="color: #f97316;"></i> Studio: Av. Openbiti, xxx - SP</div>
+              </div>
+              <div class="mt-5">
+                <div class="d-flex gap-4">
+                  <a href="#" class="text-white fs-3"><i class="fab fa-instagram" style="transition: 0.2s; color: #f97316;"></i></a>
+                  <a href="#" class="text-white fs-3"><i class="fab fa-youtube" style="color: #f97316;"></i></a>
+                  <a href="#" class="text-white fs-3"><i class="fab fa-tiktok" style="color: #f97316;"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-7">
+              <div class="card-dark p-4 p-lg-5">
+                <h4 class="mb-3">Envie uma mensagem</h4>
+                <form>
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <input type="text" class="form-control bg-dark text-white border-secondary" placeholder="Seu nome" />
+                    </div>
+                    <div class="col-md-6">
+                      <input type="email" class="form-control bg-dark text-white border-secondary" placeholder="Email ou celular" />
+                    </div>
+                    <div class="col-12">
+                      <textarea rows="4" class="form-control bg-dark text-white border-secondary" placeholder="Conte seus objetivos..."></textarea>
+                    </div>
+                    <div class="col-12">
+                      <button type="button" class="btn btn-orange w-100">
+                        <i class="fas fa-paper-plane me-2"></i> Solicitar contato
+                      </button>
+                    </div>
+                  </div>
+                </form>
+                <div class="mt-3 text-center small">Respondo em até 2h. Garanta já seu horário!</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="pt-5 pb-4 mt-5">
+        <div class="container">
+          <div class="row gy-4">
+            <div class="col-md-5">
+              <h3 class="fw-bold">TRAINNER<span style="color: #f97316;"> | OPENBITI</span></h3>
+              <p class="text-white-50">
+                Personal trainer dedicado a criar a melhor versão de você. Resultados reais, método sério e acolhedor.
+              </p>
+            </div>
+            <div class="col-md-3">
+              <h5>Links rápidos</h5>
+              <ul class="list-unstyled">
+                <li><a href="#sobre" class="text-white-50 text-decoration-none">Sobre</a></li>
+                <li><a href="#servicos" class="text-white-50 text-decoration-none">Serviços</a></li>
+                <li><a href="#planos" class="text-white-50 text-decoration-none">Planos</a></li>
+                <li><a href="#contato" class="text-white-50 text-decoration-none">Contato</a></li>
+              </ul>
+            </div>
+            <div class="col-md-4">
+              <h5>Newsletter</h5>
+              <div class="input-group">
+                <input type="email" class="form-control bg-dark border-orange" placeholder="Seu e-mail" />
+                <button class="btn btn-orange" type="button">Inscrever</button>
+              </div>
+              <p class="small text-white-50 mt-2">Receba dicas de treino e nutrição.</p>
+            </div>
+          </div>
+          <hr class="border-secondary" />
+          <div class="text-center text-white-50 small">© 2025 TRAINNER - Todos os direitos reservados. Força e foco.</div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- JS (local) -->
+    <script src="./assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="./assets/site.js"></script>
+  </body>
+</html>

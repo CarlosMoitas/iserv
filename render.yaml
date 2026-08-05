@@ -47,6 +47,15 @@ services:
     buildCommand: "echo 'Site estático, sem build necessário.'"
     staticPublishPath: .
 
+  # Landing Page pública (Experiência do Cliente Final) — Trainner (Academia).
+  # Site estático puro (HTML/CSS/JS), sem build step.
+  - type: web
+    name: iserv-site-trainner
+    env: static
+    rootDir: sites/trainner
+    buildCommand: "echo 'Site estático, sem build necessário.'"
+    staticPublishPath: .
+
 databases:
   - name: iserv-db
     databaseName: iserv
