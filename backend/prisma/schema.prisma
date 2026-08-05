@@ -92,6 +92,7 @@ model Empresa {
   pagamentos       Pagamento[]
   configuracao     Configuracao?
   integracoes      Integracao[]
+  conversasWhatsApp ConversaWhatsApp[]
   assinaturas      Assinatura[]
   createdAt        DateTime         @default(now()) @map("created_at")
   updatedAt        DateTime         @updatedAt @map("updated_at")
@@ -370,4 +371,29 @@ model Integracao {
   @@unique([empresaId, tipo])
   @@index([empresaId])
   @@map("integracoes")
+}
+
+model ConversaWhatsApp {
+  id           String   @id @default(cuid())
+  empresaId     String   @map("empresa_id")
+  empresa       Empresa  @relation(fields: [empresaId], references: [id], onDelete: Cascade)
+
+  // E.164 sem '+', ex: 5511999999999
+  telefone      String
+
+  // START | ASK_NAME | ASK_SERVICE | ASK_DATETIME | CONFIRM
+  stage         String   @default("START")
+
+  // dados coletados (nome, servicoId, datetime, etc.)
+  contexto      Json?
+
+  ultimoContato DateTime @default(now()) @map("ultimo_contato")
+  needsHuman    Boolean  @default(false) @map("needs_human")
+
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@unique([empresaId, telefone])
+  @@index([empresaId])
+  @@map("conversas_whatsapp")
 }

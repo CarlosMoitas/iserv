@@ -5,11 +5,20 @@ import { authRouter } from "./routes/auth.js";
 import { dashboardRouter } from "./routes/dashboard.js";
 import { resourceRouter } from "./routes/resources.js";
 import { publicRouter } from "./routes/public.js";
+import { whatsappRouter } from "./routes/whatsapp.js";
 
 const app = express();
 const port = Number(process.env.PORT || 3333);
 
-app.use(express.json({ limit: "2mb" }));
+app.use(
+  express.json({
+    limit: "2mb",
+    verify: (req, _res, buf) => {
+      // usado para validar assinatura do webhook (x-hub-signature-256)
+      req.rawBody = buf;
+    },
+  }),
+);
 
 // Rotas públicas (sites institucionais/landing pages) aceitam qualquer origem,
 // pois cada empresa pode hospedar seu site em um domínio diferente.
@@ -57,6 +66,9 @@ app.use("/pagamentos", resourceRouter("pagamento"));
 app.use("/usuarios", resourceRouter("usuario"));
 app.use("/configuracoes", resourceRouter("configuracao"));
 app.use("/integracoes", resourceRouter("integracao"));
+
+// Integrações (webhooks) - não exigem auth (a origem é o provedor).
+app.use("/integrations/whatsapp", whatsappRouter);
 
 app.use((_request, response) => {
   response.status(404).json({
