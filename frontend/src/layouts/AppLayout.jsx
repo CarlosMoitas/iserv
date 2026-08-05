@@ -9,6 +9,7 @@ import {
   ClipboardList,
   Command,
   LayoutDashboard,
+  Link2,
   Menu,
   Moon,
   Package,
@@ -31,6 +32,7 @@ const navigation = [
   { label: "Financeiro", to: "/financeiro", icon: CircleDollarSign },
   { label: "Produtos", to: "/produtos", icon: Package },
   { label: "Relatórios", to: "/relatorios", icon: BarChart3 },
+  { label: "Integrações", to: "/integracoes", icon: Link2 },
   { label: "Configurações", to: "/configuracoes", icon: Settings },
 ];
 

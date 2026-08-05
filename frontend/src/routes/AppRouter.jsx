@@ -7,6 +7,7 @@ import {
   AgendaPage,
   ClientesPage,
   FinanceiroPage,
+  IntegracoesPage,
   OrcamentosPage,
   OrdensServicoPage,
   PlaceholderPage,
@@ -66,6 +67,7 @@ export function AppRouter() {
         <Route path="financeiro" element={<FinanceiroPage />} />
         <Route path="produtos" element={<ProdutosPage />} />
         <Route path="relatorios" element={<PlaceholderPage title="Relatórios" description="Análises e exportações de dados estarão disponíveis em breve." />} />
+        <Route path="integracoes" element={<IntegracoesPage />} />
         <Route path="configuracoes" element={<PlaceholderPage title="Configurações" description="Personalize sua conta e empresa nesta seção." />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>

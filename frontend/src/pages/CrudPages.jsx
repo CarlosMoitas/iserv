@@ -4,6 +4,7 @@ import {
   CalendarDays,
   CircleDollarSign,
   ClipboardList,
+  Link2,
   Package,
   Scissors,
   Users,
@@ -42,13 +43,25 @@ export function ResourceForm({ endpoint, fields, defaultValues, onSuccess, onClo
 
   useEffect(() => { reset(defaultValues); }, [defaultValues]);
 
+  function applyTransforms(values) {
+    const next = { ...values };
+    for (const field of fields) {
+      if (!field?.name) continue;
+      if (typeof field.transformOut === "function") {
+        next[field.name] = field.transformOut(next[field.name], next);
+      }
+    }
+    return next;
+  }
+
   async function onSubmit(data) {
     setServerError("");
     try {
+      const payload = applyTransforms(data);
       if (defaultValues?.id) {
-        await api.put(`${endpoint}/${defaultValues.id}`, data);
+        await api.put(`${endpoint}/${defaultValues.id}`, payload);
       } else {
-        await api.post(endpoint, data);
+        await api.post(endpoint, payload);
       }
       onSuccess();
       onClose();
@@ -100,6 +113,75 @@ const ordemStatusMap = { ABERTA: { label: "Aberta", tone: "warning" }, EM_ANDAME
 const orcamentoStatusMap = { RASCUNHO: { label: "Rascunho", tone: "neutral" }, ENVIADO: { label: "Enviado", tone: "primary" }, APROVADO: { label: "Aprovado", tone: "success" }, RECUSADO: { label: "Recusado", tone: "danger" }, EXPIRADO: { label: "Expirado", tone: "warning" } };
 const agendamentoStatusMap = { AGENDADO: { label: "Agendado", tone: "neutral" }, CONFIRMADO: { label: "Confirmado", tone: "primary" }, CONCLUIDO: { label: "Concluído", tone: "success" }, CANCELADO: { label: "Cancelado", tone: "danger" } };
 const pagamentoStatusMap = { PENDENTE: { label: "Pendente", tone: "warning" }, PAGO: { label: "Pago", tone: "success" }, CANCELADO: { label: "Cancelado", tone: "danger" } };
+
+export function IntegracoesPage() {
+  const [modal, setModal] = useState(null);
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const columns = [
+    { key: "nome", label: "Nome" },
+    { key: "tipo", label: "Tipo" },
+    { key: "ativo", label: "Ativo", render: (item) => <Badge tone={item.ativo ? "success" : "neutral"}>{item.ativo ? "Ativo" : "Inativo"}</Badge> },
+    { key: "createdAt", label: "Criado em", render: (item) => formatDate(item.createdAt) },
+  ];
+
+  const fields = [
+    { name: "tipo", label: "Tipo", rules: { required: "Obrigatório." }, placeholder: "WHATSAPP" },
+    { name: "nome", label: "Nome", rules: { required: "Obrigatório." }, placeholder: "WhatsApp - Soma Contabilidade" },
+    {
+      name: "ativo",
+      label: "Ativo",
+      type: "select",
+      options: [{ value: "true", label: "Ativo" }, { value: "false", label: "Inativo" }],
+      transformOut: (v) => v === true || v === "true",
+    },
+    {
+      name: "configuracao",
+      label: "Configuração (JSON)",
+      type: "textarea",
+      placeholder:
+        '{\n  "phoneNumberId": "....",\n  "verifyToken": "....",\n  "accessToken": "....",\n  "ai": { "enabled": true, "openaiApiKey": "....", "model": "gpt-4o-mini" }\n}',
+      transformOut: (v) => {
+        if (v && typeof v === "string") return JSON.parse(v);
+        return v || {};
+      },
+    },
+  ];
+
+  function toFormModel(item) {
+    if (!item) return item;
+    const configuracaoText =
+      item.configuracao && typeof item.configuracao === "object"
+        ? JSON.stringify(item.configuracao, null, 2)
+        : item.configuracao || "";
+    return {
+      ...item,
+      ativo: item.ativo ? "true" : "false",
+      configuracao: configuracaoText,
+    };
+  }
+
+  return (
+    <>
+      <ResourceList
+        key={refreshKey}
+        endpoint="/integracoes"
+        title="Integrações"
+        newLabel="Nova integração"
+        emptyLabel="Nenhuma integração cadastrada."
+        emptyIcon={Link2}
+        columns={columns}
+        onNew={() => setModal(toFormModel({ tipo: "WHATSAPP", nome: "WhatsApp - ", ativo: true, configuracao: { ai: { enabled: false } } }))}
+        onEdit={(item) => setModal(toFormModel(item))}
+      />
+      {modal !== null && (
+        <Modal title={modal.id ? "Editar integração" : "Nova integração"} onClose={() => setModal(null)}>
+          <ResourceForm endpoint="/integracoes" fields={fields} defaultValues={modal} onSuccess={() => setRefreshKey((k) => k + 1)} onClose={() => setModal(null)} />
+        </Modal>
+      )}
+    </>
+  );
+}
 
 export function ClientesPage() {
   const [modal, setModal] = useState(null);
